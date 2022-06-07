@@ -6,29 +6,38 @@
 
 
 
-const fs = require ('fs')
+const fs = require('fs')
 
-function alphabet () {
-    const ALPHA =['', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+function alphabet() {
+    const ALPHA = ['', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
     const data = fs.readFileSync("p022_names.txt", "utf8");
     let space = data.replace(/"/g, '')
     let names = space.split(",")
     names.sort()
+    let totalScore = 0
+
     names.forEach((name, i) => {
-        let sum = 0
+        let nameScore = 0
         name.split('').forEach((letter) => {
             let valLetter = ALPHA.indexOf(letter)
-            sum += valLetter;
-            
-            console.log(name, i, letter, valLetter, sum)
+            nameScore += valLetter;
         })
+        let productScore = nameScore * (i + 1)
+        totalScore += productScore
+
+        console.log(name, i, nameScore, productScore, totalScore)
     });
-    // console.log(names);
+
 }
 
 alphabet()
 
+// correct answer = 871198282,
+
+
+
 /* steps
+
 
 1. take the first character in the name
 2. assign it a value 
